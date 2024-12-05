@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+    <head>
+        <meta charset="utf-8">
+        <title th:inline="text">Productos</title>
+    </head>
+    <body>
+
+        <div layout:fragment="content">
+            <h4>Todos los Productos</h4>
+
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-3 my-5" th:each="producto : ${productos}"
+                         th:object="${producto}">
+                        <a th:href="@{/productos/{id}(id=*{id})}" class="card shadow-lg"
+                           style="text-decoration: none;"> <img
+                                th:src="@{/assets/{filename}(filename=*{rutaPortada})}"
+                                th:alt="*{nombre}" class="card-img-top">
+                            <div class="card-body">
+                                <h2 class="card-title fs-6" th:text="*{nombre}"></h2>
+                                <h2 class="card-title fs-6" th:text="'S/ ' + *{precio}"></h2>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row mt-5" th:with="page=${productos}">
+                    <div class="col-sm-6">
+                        <div sd:pagination-sumary></div>
+                        <div class="col-sm-6">
+                            <nav>
+                                <ul class="pagination" sd:pagination="full"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

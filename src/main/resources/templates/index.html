@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{master.html}">
+<head>
+  <meta charset="utf-8">
+  <title>Inicio</title>
+  <!-- Agregar los enlaces a los archivos de Bootstrap (CSS y JS) -->
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJx3K4jJ6qjl5D/0Wf3H/nQJfLlcxJlr0JH0Y/q9mT3m2LE10J2V8l0XQJOM" crossorigin="anonymous">
+  <style>
+    /* Asegurar que las imágenes tengan el mismo tamaño */
+    .carousel-item img {
+      width: 100%;
+      height: 400px; /* Altura fija para todas las imágenes */
+      object-fit: cover; /* Asegura que la imagen cubra el área sin deformarse */
+    }
+     body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Hacer que el footer se quede en el fondo de la página */
+    footer {
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div layout:fragment="content">
+      
+    <!-- Carrusel de imágenes -->
+    <div class="container" style="max-width: 1000px; margin-bottom: 40px;">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/images/carousel2.jpeg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/images/carousel4.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="/images/carousel5.jpeg" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+
+    <br>
+    <!-- Sección de productos -->
+    <div class="bg-dark text-white p-5 rounded">
+        <h1 class="display-1 text-warning">Bienvenido a Joyería Yafer</h1>
+        <h2 class="text-light">Donde encontrarás las mejores joyas artesanales</h2>
+    </div>
+
+    
+    <h4 class="text-danger mt-5">Galería de Productos</h4>
+    
+    <div class="row">
+        <div class="col-md-3 my-5" th:each="producto : ${ultimosProductos}" th:object="${producto}">
+           <a th:href="@{/productos/{id}(id=*{id})}" class="card shadow-lg" style="text-decoration:none;">
+           <img th:src="@{/assets/{filename}(filename=*{rutaPortada})}" th:alt="*{nombre}" class="card-img-top">
+           <div class="card-body">
+              <h2 class="card-title fs-6" th:text="*{nombre}"></h2>
+              <h2 class="card-title fs-6" th:text="'S/ ' + *{precio}"></h2>
+           </div>
+           </a>
+        </div>
+    </div>
+  </div> 
+
+
+  <!-- Agregar los scripts de Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-b6I4rbaS5P4+TT6mcb47Q+rf4+Do3H8g4pcF8oBrHch4LqU4qMHDcU5tfoABt29A" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

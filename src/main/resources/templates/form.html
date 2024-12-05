@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+
+        <div layout:fragment="form">
+            <br>
+            <form action="" method="post" th:object="${producto}"
+                  enctype="multipart/form-data">
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <div class="mb-3">
+                    <label for="id" class="form-label">ID : </label> <input
+                        type="text" id="id" placeholder="Digite el Id"
+                        class="form-control" th:field="*{id}">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('id')}"
+                         th:errors="*{id}"></div>
+                </div> 
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre : </label> <input
+                        type="text" id="nombre" placeholder="Digite el Nombre"
+                        class="form-control" th:field="*{nombre}">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}"
+                         th:errors="*{nombre}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">descripcion : </label>
+                    <textarea id="descripcion" placeholder="Digite la descripcion"
+                              class="form-control" th:field="*{descripcion}"></textarea>
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="portada" class="form-label">Portada : </label> <input
+                        type="file" name="portada" id="portad" class="form-control"
+                        th:field="*{portada}">
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('portada')}" th:errors="*{portada}"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="categorias" class="form-label">categoria : </label> 
+                    <select
+                        id="categorias" class="form-control" th:field="*{categorias}" multiple>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+                                th:text="${categoria.nombre}"></option>
+                    </select>
+                    <div class="invalid-feedback"
+                         th:if="${#fields.hasErrors('categorias')}" th:errors="*{categorias}"></div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="precio" class="form-label">precio : </label> <input
+                        type="text" id="precio" placeholder="Digite el precio"
+                        class="form-control" th:field="*{precio}">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('precio')}"
+                         th:errors="*{precio}"></div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="stock" class="form-label">stock : </label> <input
+                        type="text" id="stock" placeholder="Digite el stock"
+                        class="form-control" th:field="*{stock}">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('stock')}"
+                         th:errors="*{stock}"></div>
+                </div>
+                
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
