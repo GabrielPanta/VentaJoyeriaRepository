@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CustomErrorController implements ErrorController {
 
-    @RequestMapping("/error")
+  @RequestMapping("/error")
     public String handleError() {
         // Este método maneja los errores y redirige a la página correspondiente
         return "403"; // Asegúrate de que este sea el nombre del archivo que creaste (por ejemplo, "403.html")

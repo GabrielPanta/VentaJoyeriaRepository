@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.joyeria.ventas_joyeria.repositories.UserRepository;
+import java.util.List;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 /**
@@ -29,6 +30,5 @@ public class UserService implements UserDetailsService{
         return repository.findByUsername(username);
        
     }
-    
-    
+
 }

@@ -30,6 +30,9 @@ public class User implements UserDetails{
 
     @Column(name = "password")
     String password;
+    
+    
+
 
     public Integer getId() {
         return id;
@@ -39,6 +42,7 @@ public class User implements UserDetails{
         this.id = id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -92,7 +96,6 @@ public class User implements UserDetails{
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
-
     @OneToMany(fetch = FetchType.EAGER)
     List<Role> roleList;
 }
