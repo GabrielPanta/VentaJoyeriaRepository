@@ -44,4 +44,17 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+    
+     @ManyToMany(mappedBy = "roleList")
+    private List<User> userList;
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+     
+     
 }

@@ -53,16 +53,16 @@ public class UsuarioController {
     @PostMapping("/guardar")
     public String guardarUsuario(@ModelAttribute User usuario) {
         // Encriptar la contraseña antes de guardarla
-    usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-    // Crear la lista de roles seleccionados
-    List<Role> selectedRoles = new ArrayList<>();
-
-    // Si ya estás recibiendo los roles completos, simplemente los agregas
-    for (Role role : usuario.getRoleList()) {
-        if (role != null) {
-            selectedRoles.add(role); // Asignamos el rol al usuario
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        // Crear la lista de roles seleccionados
+        List<Role> selectedRoles = new ArrayList<>();
+        if (usuario.getRoleList() != null) {
+            for (Role role : usuario.getRoleList()) {
+                if (role != null) {
+                    selectedRoles.add(role); // Agregar roles válidos a la lista
+                }
+            }
         }
-    }
 
         usuario.setRoleList(selectedRoles); // Asignar los roles seleccionados al usuario
         usuarioService.saveUsuario(usuario);

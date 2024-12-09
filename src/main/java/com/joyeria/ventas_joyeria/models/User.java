@@ -79,8 +79,8 @@ public class User implements UserDetails{
             authorityList.add(authority);
         }
         return authorityList;
-    }
-
+    } 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -96,6 +96,16 @@ public class User implements UserDetails{
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
-    @OneToMany(fetch = FetchType.EAGER)
+    
+    /*@OneToMany(fetch = FetchType.EAGER)
+    List<Role> roleList;*/
+    
+    
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+@JoinTable(
+    name = "user_role_list",
+    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "role_list_id", referencedColumnName = "id")
+)
     List<Role> roleList;
 }

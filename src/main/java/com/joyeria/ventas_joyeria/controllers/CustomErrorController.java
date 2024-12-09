@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author GabrielPanta
  */
-@Controller
+/*@Controller
 public class CustomErrorController implements ErrorController {
 
   @RequestMapping("/error")
@@ -23,4 +23,4 @@ public class CustomErrorController implements ErrorController {
     public String getErrorPath() {
         return "/error";
     }
-}
+}*/

@@ -25,6 +25,7 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf(csrf->csrf.disable())
                 //.formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                 .loginPage("/login").permitAll())
@@ -45,8 +46,8 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasAnyAuthority("admin")//solo los usuarios con el rol admin pueden acceder a rutas de administración.
                 .requestMatchers("/soporte/**").hasAnyAuthority("admin", "soporte")//los usuarios con rol admin o staff pueden acceder a las rutas de personal.
                 .anyRequest().authenticated())//cualquier acceso que no esté explícitamente permitido será bloqueado
-               .exceptionHandling(exception -> exception
-                .accessDeniedPage("/error/403"))
+               //.exceptionHandling(exception -> exception
+               // .accessDeniedPage("/error/403"))
                 .userDetailsService(userService).build();//crea una instancia de securityFilterChain
 
     }

@@ -8,6 +8,8 @@
 <div class="container mt-5">
     <h1 th:text="${usuario.id != null ? 'Editar Usuario' : 'Crear Usuario'}"></h1>
     <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post" class="mt-4">
+         <!-- Campo oculto para el ID -->
+    <input type="hidden" th:field="*{id}" />
         <div class="mb-3">
             <label for="username" class="form-label">Nombre de Usuario</label>
             <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required>
