@@ -101,7 +101,7 @@ public class User implements UserDetails{
     List<Role> roleList;*/
     
     
-   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)  // Cambié EAGER a LAZY por eficiencia.
+   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)  // Cambié EAGER a LAZY por eficiencia.
     @JoinTable(
         name = "user_role_list", 
         joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
