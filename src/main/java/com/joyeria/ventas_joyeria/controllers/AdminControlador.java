@@ -7,6 +7,7 @@ import com.joyeria.ventas_joyeria.repositories.ProductoRepositorio;
 import com.joyeria.ventas_joyeria.service.AlmacenServicioImpl;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -119,11 +120,21 @@ public class AdminControlador {
     }
 
     @PostMapping("/productos/{id}/eliminar")
-    public String eliminarProducto(@PathVariable Integer id) {
-        Producto producto = productoRepositorio.getOne(id);
+public String eliminarProducto(@PathVariable Integer id) {
+    // Usamos findById() para obtener el producto de manera segura.
+    Optional<Producto> productoOpt = productoRepositorio.findById(id);
+    
+    if (productoOpt.isPresent()) {
+        Producto producto = productoOpt.get();
         productoRepositorio.delete(producto);
         servicio.eliminarArchivo(producto.getRutaPortada());
-
-        return "redirect:/admin";
+    } else {
+        // Manejar el caso cuando el producto no se encuentra.
+        // Puedes redirigir a una página de error o mostrar un mensaje adecuado.
+        return "redirect:/error"; // O cualquier otra vista que desees mostrar.
     }
+
+    return "redirect:/admin"; // Redirigir a la página de administración.
+}
+
 }

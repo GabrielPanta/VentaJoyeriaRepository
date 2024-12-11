@@ -101,11 +101,11 @@ public class User implements UserDetails{
     List<Role> roleList;*/
     
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-@JoinTable(
-    name = "user_role_list",
-    joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "role_list_id", referencedColumnName = "id")
-)
+   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)  // Cambié EAGER a LAZY por eficiencia.
+    @JoinTable(
+        name = "user_role_list", 
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), 
+        inverseJoinColumns = @JoinColumn(name = "role_list_id", referencedColumnName = "id")
+    )
     List<Role> roleList;
 }

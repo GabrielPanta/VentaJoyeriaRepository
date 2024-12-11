@@ -32,5 +32,7 @@ public class RoleService {
     public Role getRoleById(Integer id) {
     return roleRepository.findById(id).orElse(null); // Devuelve null si no se encuentra el rol
 }
-
+public Role findByName(String name) {
+    return roleRepository.findByName(name);  // Debes implementar este método en RoleRepository
+}
 }

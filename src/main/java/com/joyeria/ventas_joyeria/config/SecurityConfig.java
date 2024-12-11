@@ -23,28 +23,34 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf->csrf.disable())
+                .headers(headers -> headers
+            .cacheControl(cache -> cache.disable()) // Deshabilitar la caché
+        )
+                //.csrf(csrf->csrf.disable())
                 //.formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
-                .loginPage("/login").permitAll())
+                    .loginPage("/login").permitAll())
                 .logout(logout -> logout
-                .logoutUrl("/logout-success") // URL para el cierre de sesión
-                .logoutSuccessUrl("/login") // Redirección tras el cierre de sesión
-                .invalidateHttpSession(true) // Invalidar la sesión
-                .deleteCookies("JSESSIONID") // Eliminar cookies de sesión
-                .permitAll()) // Permitir el acceso al cierre de sesión sin autenticación
+                    .logoutUrl("/logout") // URL para el cierre de sesión
+                    .logoutSuccessUrl("/") // Redirección tras el cierre de sesión
+                    .invalidateHttpSession(true) // Invalidar la sesión
+                    .deleteCookies("JSESSIONID") // Eliminar cookies de sesión
+                    .permitAll()) // Permitir el acceso al cierre de sesión sin autenticación
                 .authorizeHttpRequests(req -> req //securityFilterChain
                 //.requestMatchers("/login/**").permitAll() //Permite el acceso sin autenticación - página de inicio de sesión sin estar autenticados
-                .requestMatchers("/static/**", "/images/**").permitAll()
-                .requestMatchers("/upload/**").permitAll() // Permitir la carga de archivos sin autenticación
-                .requestMatchers("/usuarios/**").hasAnyAuthority("admin")
-                .requestMatchers("/usuarios/crear").hasAuthority("admin") // Acceso solo para admin a la creación de usuarios
-                .requestMatchers("/usuarios/editar/**").hasAuthority("admin") // Acceso solo para admin a la edición de usuarios
-                .requestMatchers("/usuarios/eliminar/**").hasAuthority("admin") // Acceso solo para admin a la eliminación de usuarios
-                .requestMatchers("/admin/**").hasAnyAuthority("admin")//solo los usuarios con el rol admin pueden acceder a rutas de administración.
-                .requestMatchers("/soporte/**").hasAnyAuthority("admin", "soporte")//los usuarios con rol admin o staff pueden acceder a las rutas de personal.
+                    .requestMatchers("/static/**", "/images/**","/assets/**").permitAll()
+                    .requestMatchers("/upload/**").permitAll() // Permitir la carga de archivos sin autenticación
+                    .requestMatchers("/").permitAll() // Página de inicio accesible sin autenticación
+                    .requestMatchers("/productos/**").permitAll()
+                    .requestMatchers("/register").permitAll() // Página de registro accesible sin autenticación
+                    .requestMatchers("/usuarios/**").hasAnyAuthority("admin")
+                    .requestMatchers("/usuarios/crear").hasAuthority("admin") // Acceso solo para admin a la creación de usuarios
+                    .requestMatchers("/usuarios/editar/**").hasAuthority("admin") // Acceso solo para admin a la edición de usuarios
+                    .requestMatchers("/usuarios/eliminar/**").hasAuthority("admin") // Acceso solo para admin a la eliminación de usuarios
+                    .requestMatchers("/admin/**").hasAnyAuthority("admin")//solo los usuarios con el rol admin pueden acceder a rutas de administración.
+                    .requestMatchers("/soporte/**").hasAnyAuthority("admin", "soporte")//los usuarios con rol admin o staff pueden acceder a las rutas de personal.
                 .anyRequest().authenticated())//cualquier acceso que no esté explícitamente permitido será bloqueado
                //.exceptionHandling(exception -> exception
                // .accessDeniedPage("/error/403"))

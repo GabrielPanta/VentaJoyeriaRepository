@@ -4,6 +4,7 @@
  */
 package com.joyeria.ventas_joyeria.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LogoutController {
 
     @GetMapping("/logout")
-    public String logoutSuccess() {
-        return "login"; // Devuelve una vista personalizada
+    public String logoutSuccess(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/";
+        //return "/index"; // Devuelve una vista personalizada
     }
 }
 

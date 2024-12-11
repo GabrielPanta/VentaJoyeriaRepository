@@ -17,6 +17,7 @@
                 <div class="col-md-6">
                     <h2 th:text="*{nombre}"></h2>
                     <h2 th:text="'S/ ' +*{precio}"></h2>
+                    <h4 th:text="'- ' +*{descripcion}"></h4>
                     <div class="mb-3">
                         <span class="badge rounded-pull bg-light text-dark me-1"
                               th:each="categoria : *{categorias}" th:text="${categoria.nombre}"></span>
